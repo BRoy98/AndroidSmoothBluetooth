@@ -1,5 +1,6 @@
 package io.palaima.smoothbluetooth.app;
 
+import android.support.v7.widget.LinearLayoutManager;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.palaima.bluetooth.app.R;
 
@@ -220,11 +221,11 @@ public class MainActivity extends AppCompatActivity {
 
             final MaterialDialog dialog = new MaterialDialog.Builder(MainActivity.this)
                     .title("Devices")
-                    .adapter(new DevicesAdapter(MainActivity.this, deviceList))
+                    .adapter(new DevicesAdapter(MainActivity.this, deviceList), new LinearLayoutManager(MainActivity.this))
                     .build();
 
-            ListView listView = dialog.getListView();
-            if (listView != null) {
+            dialog.show();
+            /*if (listView != null) {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -233,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
-            }
+            }*/
 
             dialog.show();
 

@@ -1,6 +1,7 @@
 package io.palaima.smoothbluetooth.app;
 
 
+import android.support.v7.widget.RecyclerView;
 import com.palaima.bluetooth.app.R;
 
 import android.content.Context;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import io.palaima.smoothbluetooth.Device;
 
-public class DevicesAdapter extends BaseAdapter {
+public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHolder> {
 
     private final Context mContext;
     private final List<Device> mDevices;
@@ -25,6 +26,25 @@ public class DevicesAdapter extends BaseAdapter {
     }
 
     @Override
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_device, parent, false);
+
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.mMacTV.setText(mDevices.get(position).getAddress());
+        holder.mNameTV.setText(mDevices.get(position).getName());
+
+    }
+    @Override
+    public int getItemCount() {
+        return mDevices.size();
+    }
+
+    /*@Override
     public int getCount() {
         return mDevices.size();
     }
@@ -59,16 +79,18 @@ public class DevicesAdapter extends BaseAdapter {
         holder.mNameTV.setText(device.getName());
         holder.mMacTV.setText(device.getAddress());
 
-        return view;
-    }
+        return view;*/
 
-    private class ViewHolder {
-        public TextView mNameTV;
-        public TextView mMacTV;
+
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView mNameTV;
+        TextView mMacTV;
 
         private ViewHolder(View view) {
-            mNameTV = (TextView) view.findViewById(R.id.nameTV);
-            mMacTV = (TextView) view.findViewById(R.id.macTV);
+            super(view);
+            mNameTV = view.findViewById(R.id.nameTV);
+            mMacTV = view.findViewById(R.id.macTV);
         }
     }
 }
